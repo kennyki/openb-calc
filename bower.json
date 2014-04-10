@@ -1,9 +1,0 @@
-{
-	"name": "openb-calc",
-	"dependencies": {
-		"angular": "1.2.15",
-		"angular-route": "1.2.15",
-		"angular-bootstrap": "0.10.0",
-		"bootstrap-css-only": "3.0.3"
-	}
-}

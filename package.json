@@ -1,41 +1,21 @@
 {
-  "name": "openb-calc",
-  "version": "0.1.0",
-  "description": "OpenB Calculator Demo",
-  "homepage": "http://kennyki.github.io/openb-calc",
-  "keywords": [
-    "openb-calc",
-    "OpenB Calculator"
-  ],
-  "author": "Kenny Ki",
-  "maintainers": [],
-  "contributors": [],
-  "bugs": {
-    "url": "https://github.com/kennyki/openb-calc/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/kennyki/openb-calc.git"
-  },
-  "engines": {
-    "node": "0.8.x",
-    "npm": "1.1.x"
-  },
+  "name": "application-name",
+  "version": "0.0.1",
+  "private": true,
   "dependencies": {
-    "docpad": "6.x",
-    "docpad-plugin-cleanurls": "2.x",
-    "docpad-plugin-coffeescript": "2.x",
-    "docpad-plugin-marked": "2.x",
-    "docpad-plugin-stylus": "2.x",
-    "docpad-plugin-text": "2.x",
-    "docpad-plugin-jade": "2.x",
-    "marked": "*"
+    "express": "~3.1.0",
+    "jade": ">1.0.0",
+    "stylus": "*",
+    "coffee-script": "~1.5.0",
+    "underscore": "~1.4.1",
+    "underscore.string": "~2.3.0",
+    "connect-assets": "~3.0.0-beta1"
   },
   "devDependencies": {
-    "bower": "~1"
-  },
-  "main": "node_modules/docpad/bin/docpad-server",
-  "scripts": {
-    "postinstall": "node node_modules/bower/bin/bower install"
+    "node-dev": "~0.2.8",
+    "mocha": "~1.8.1",
+    "should": "~1.2.0",
+    "npmedge": "~0.1.1",
+    "superagent": "~0.12.4"
   }
 }
