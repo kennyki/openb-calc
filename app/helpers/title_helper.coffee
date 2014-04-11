@@ -1,6 +1,6 @@
 _s = require 'underscore.string'
 
-BASE_TITLE = "My Site"
+BASE_TITLE = "OpenB Calculator"
 
 module.exports = ->
   (title = '') ->

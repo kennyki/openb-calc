@@ -1,16 +1,19 @@
 {spawn} = require 'child_process'
 
-binDir = './node_modules/.bin'
-nodeDev = "#{binDir}/node-dev"
-mocha = "#{binDir}/mocha"
-npmedge = "#{binDir}/npmedge"
+# handle for windows..
+extension = if process.platform is "win32" then ".cmd" else ""
+
+# Currently rely on global modules..
+# TODO: check why the local install of modules won't work in windows..
+node = "node"
+mocha = "mocha#{extension}"
 
 option '-p', '--port [PORT_NUMBER]', 'set the port number for `start`'
 option '-e', '--environment [ENVIRONMENT_NAME]', 'set the environment for `start`'
 task 'start', 'start the server', (options) ->
   process.env.NODE_ENV = options.environment ? 'development'
   process.env.PORT = options.port if options.port
-  spawn nodeDev, ['server.js'], stdio: 'inherit'
+  spawn "node", ['server.js'], stdio: 'inherit'
 
 task 'test', 'run the tests', ->
   process.env.NODE_ENV = 'test'
@@ -23,8 +26,3 @@ task 'test', 'run the tests', ->
     './app/test'
   ]
   spawn mocha, args, stdio: 'inherit'
-
-task 'update', 'update all packages and run npmedge', ->
-  (spawn 'npm', ['install', '-q'], stdio: 'inherit').on 'exit', ->
-    (spawn 'npm', ['update', '-q'], stdio: 'inherit').on 'exit', ->
-      spawn npmedge, [], stdio: 'inherit'

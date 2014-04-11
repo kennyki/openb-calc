@@ -33,6 +33,7 @@ app.configure "test", ->
 autoload = require('./config/autoload')(app)
 autoload "#{__dirname}/helpers", true
 autoload "#{__dirname}/assets/js/shared", true
+autoload "#{__dirname}/utils"
 autoload "#{__dirname}/models"
 autoload "#{__dirname}/controllers"
 
