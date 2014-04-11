@@ -1,3 +1,8 @@
+mongojs = require("mongojs")
+
+db = mongojs("openb_calc")
+collection = db.collection("history")
+
 module.exports = (app) ->
 	
 	Calculator = 
@@ -24,6 +29,11 @@ module.exports = (app) ->
 					return op1 / op2
 
 		###
+		# Temporary holder for current expression
+		###
+		expression: null
+
+		###
 		# Temporary holder for all numbers in an expression
 		###
 		numbers: []
@@ -34,9 +44,20 @@ module.exports = (app) ->
 		operators: []
 
 		###
+		# Temporary holder for all steps involved in an expression evaluation
+		###
+		steps: []
+
+		###
 		# Start evaluating an expression
 		###
 		run: (expression) ->
+			unless expression
+				return 0
+
+			# for record purpose
+			@expression = expression
+
 			# strip all whitespaces
 			expression = expression.replace(/\s/g, "")
 
@@ -51,7 +72,13 @@ module.exports = (app) ->
 					n
 			);
 
-			return @operate(numbers.shift(), numbers.shift())
+			# eval
+			result = @operate(numbers.shift(), numbers.shift())
+
+			# record
+			@record()
+
+			return result
 
 		###
 		# A recursive function that'll prioritize * and / operations ahead of + and -
@@ -67,7 +94,7 @@ module.exports = (app) ->
 			if operation.priority == 0
 				op2 = @operate(op2, @numbers.shift())
 
-			console.log(op1 + " " + operator + " " + op2)
+			@steps.push("#{op1} #{operator} #{op2}")
 
 			operationResult = @parseNum(operation.fn(@parseNum(op1), @parseNum(op2)))
 
@@ -79,3 +106,16 @@ module.exports = (app) ->
 		parseNum: (str) ->
 			num = new Number(str)
 			return parseFloat(num.toPrecision(3))
+
+		record: () ->
+			if !collection or !@expression or !@steps
+				return
+
+			console.log("Recording history for '#{@expression}': #{@steps}...")
+
+			collection.insert(
+				expression: @expression,
+				steps: @steps.join(" & ")
+			, (error) ->
+				return console.error(error) if error
+			)
