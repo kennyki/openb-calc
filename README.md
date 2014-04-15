@@ -11,7 +11,6 @@ Installation
 Run
 ----
 1. Cd into project dir
-1. Create new folder "db"
 1. Execute command `mongod --dbpath db`
 1. Execute command `cake start` or `npm start`
 1. Browse to http://localhost:8000
